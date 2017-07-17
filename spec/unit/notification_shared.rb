@@ -49,5 +49,13 @@ shared_examples_for 'an Notification subclass' do
       notification.notification = { hi: 'dad'}
       expect(notification.notification).to eq('hi' => 'dad')
     end
+
+    it 'merges the new payload with the current one' do
+      notification.notification = { hi: 'dad' }
+      notification.notification = { hi: 'mom' }
+      expect(notification.notification).to eq('hi' => 'mom')
+      notification.notification = { hello: 'dad' }
+      expect(notification.notification).to eq('hi' => 'mom', 'hello' => 'dad')
+    end
   end
 end
